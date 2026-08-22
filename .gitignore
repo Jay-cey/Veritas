@@ -56,3 +56,4 @@ check_mainnet_fallback_vault.cjs
 seed_assets.cjs
 VaultRefundHelper.sol
 refund_vault.cjs
+deploy_mainnet.cjs
