@@ -15,6 +15,7 @@ contracts.md
 .env.example
 frontendenv.txt
 backendenv.txt
+
 # Hardhat & Foundry artifacts
 artifacts/
 cache/
@@ -44,3 +45,14 @@ yarn-error.log*
 # Diagnostic / utility scripts
 check_vault_registration.cjs
 check_db_assets.cjs
+check_gas_price.cjs
+check_deployer_history.cjs
+check_mainnet_contracts.cjs
+check_vault_registration.cjs
+check_asset_proofs.cjs
+seed_mongodb.cjs
+verify_mainnet.cjs
+check_mainnet_fallback_vault.cjs
+seed_assets.cjs
+VaultRefundHelper.sol
+refund_vault.cjs

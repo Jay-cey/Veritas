@@ -41,7 +41,7 @@ export const BOT_CHAIN_PARAMS = {
     dexRouter: '0xaE6ae8630f7A888dEc0B9195C85F7515d5887655',
     usdtContract: '0xaBabc7Ddc03e501d190C676BF3d92ef0e6e87a3C',
     wbotContract: '0xD5452816194a3784dBa983426cCe7c122F4abd30',
-    vaultContract: (deployedContracts.network === 'mainnet' ? deployedContracts.vault : '') || '0xE54c9Bd3D1C97518F2554be85a099EFE23556506',
+    vaultContract: (deployedContracts.network === 'mainnet' ? deployedContracts.vault : '') || '0x451833163606ff8dc51e4CEc7894306A54507893',
     aiAgentContract: (deployedContracts.network === 'mainnet' ? deployedContracts.aiAgentManager : '') || '0xeD732ea8E05033ebe4b357E69019f5ba7b9cD6f0'
   }
 };

@@ -18,15 +18,37 @@ async function main() {
     : "0xaBabc7Ddc03e501d190C676BF3d92ef0e6e87a3C";
 
   // 1. Deploy VeritasAssetVault
+  let vaultAddress = process.env.EXISTING_VAULT_ADDRESS;
+  let vault;
   const VeritasAssetVault = await hre.ethers.getContractFactory("VeritasAssetVault");
-  const vault = await VeritasAssetVault.deploy(USDT_ADDRESS);
-  await vault.waitForDeployment();
-  const vaultAddress = await vault.getAddress();
-  console.log("✔ VeritasAssetVault deployed to:", vaultAddress);
+
+  if (vaultAddress) {
+    console.log("✔ Reusing existing VeritasAssetVault at:", vaultAddress);
+    vault = await VeritasAssetVault.attach(vaultAddress);
+  } else {
+    vault = await VeritasAssetVault.deploy(USDT_ADDRESS);
+    await vault.waitForDeployment();
+    vaultAddress = await vault.getAddress();
+    console.log("✔ VeritasAssetVault deployed to:", vaultAddress);
+  }
 
   // 2. Deploy AIAgentYieldManager
   const AIAgentYieldManager = await hre.ethers.getContractFactory("AIAgentYieldManager");
-  const aiAgentManager = await AIAgentYieldManager.deploy(vaultAddress);
+  
+  let deployOptions = {};
+  if (networkName === "mainnet") {
+    const signer = (await hre.ethers.getSigners())[0];
+    const balance = await hre.ethers.provider.getBalance(signer.address);
+    const balanceBOT = Number(hre.ethers.formatEther(balance));
+    console.log(`Deployer balance: ${balanceBOT} BOT`);
+    
+    if (balanceBOT < 0.012) {
+      console.log("⚠️ Balance is low. Attempting to deploy with lowered gasPrice (12 gwei) to fit within balance...");
+      deployOptions.gasPrice = hre.ethers.parseUnits("12", "gwei");
+    }
+  }
+
+  const aiAgentManager = await AIAgentYieldManager.deploy(vaultAddress, deployOptions);
   await aiAgentManager.waitForDeployment();
   const aiAgentAddress = await aiAgentManager.getAddress();
   console.log("✔ AIAgentYieldManager deployed to:", aiAgentAddress);
@@ -43,20 +65,25 @@ async function main() {
     { id: "asset-tbill-1", name: "US Treasury Reserve Fraction", symbol: "vTBILL", supply: 500000, ipfs: "0x99e821a4f00b12c84d632a77f11e9a2b58c701d4", oracle: "BNY-Mellon-Attest" }
   ];
 
-  const VeritasFraction = await hre.ethers.getContractFactory("VeritasFraction");
   const deployedTokens = {};
 
-  for (const rwa of RWA_TOKENS) {
-    const fraction = await VeritasFraction.deploy(rwa.name, rwa.symbol, rwa.supply, rwa.ipfs, rwa.oracle);
-    await fraction.waitForDeployment();
-    const fractionAddr = await fraction.getAddress();
-    console.log(`✔ Deployed ${rwa.symbol} Token to: ${fractionAddr}`);
+  if (networkName !== "mainnet") {
+    console.log("\nDeploying Fractional RWA Tokens...");
+    const VeritasFraction = await hre.ethers.getContractFactory("VeritasFraction");
+    for (const rwa of RWA_TOKENS) {
+      const fraction = await VeritasFraction.deploy(rwa.name, rwa.symbol, rwa.supply, rwa.ipfs, rwa.oracle);
+      await fraction.waitForDeployment();
+      const fractionAddr = await fraction.getAddress();
+      console.log(`✔ Deployed ${rwa.symbol} Token to: ${fractionAddr}`);
 
-    await fraction.setVault(vaultAddress);
-    await vault.registerAsset(fractionAddr);
-    console.log(`  └ Registered ${rwa.symbol} in Vault`);
+      await fraction.setVault(vaultAddress);
+      await vault.registerAsset(fractionAddr);
+      console.log(`  └ Registered ${rwa.symbol} in Vault`);
 
-    deployedTokens[rwa.id] = fractionAddr;
+      deployedTokens[rwa.id] = fractionAddr;
+    }
+  } else {
+    console.log("\nSkipping Fractional RWA Token deployment on Mainnet per user instruction.");
   }
 
   // Save manifest file for frontend consumption

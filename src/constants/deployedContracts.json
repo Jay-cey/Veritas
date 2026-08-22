@@ -1,13 +1,13 @@
 {
-  "network": "testnet",
-  "chainId": 968,
-  "timestamp": "2026-08-17T10:49:12.565Z",
-  "vault": "0xE54c9Bd3D1C97518F2554be85a099EFE23556506",
-  "aiAgentManager": "0xeD732ea8E05033ebe4b357E69019f5ba7b9cD6f0",
+  "network": "mainnet",
+  "chainId": 677,
+  "timestamp": "2026-08-22T08:55:49.451Z",
+  "vault": "0x451833163606ff8dc51e4CEc7894306A54507893",
+  "aiAgentManager": "0x451e1Ca2652D65f981DffAE19C254490A8D7323E",
   "tokens": {
-    "asset-gpu-1": "0xB19fE5557b00bB4BdE5b7F0d8e3d3599fa3A5CDB",
-    "asset-solar-1": "0xd049Ea61FBD1edCa2f344fd4F784087A0EA1Ce34",
-    "asset-re-1": "0x8e1F48A09cDEF90C36713672A875bAb4B821f12c",
-    "asset-tbill-1": "0x221F49f107901bd572DD62cBe6186d1BF56d9cA0"
+    "asset-gpu-1": "0xD03b4DA846DfB32E94E98Fd84c55789F378A6f43",
+    "asset-solar-1": "0xB8c95B7be364965077667CC0edF7CF97D08adB84",
+    "asset-re-1": "0xB40636CC53A9137e9A640192235ec2785bBd15c0",
+    "asset-tbill-1": "0x5E8E73F4BbB8Ca4042759Ebd14C7A829033c0D99"
   }
 }
