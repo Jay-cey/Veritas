@@ -3,7 +3,8 @@ import { RWAAsset, AssetCategory, WalletState } from '../types';
 import { AssetCard } from './AssetCard';
 import { AssetSubmissionModal } from './AssetSubmissionModal';
 import { useToast } from '../context/ToastContext';
-import { Search, Filter, Cpu, Zap, Building2, Landmark, Layers, ChevronRight, Home, PlusCircle, ArrowUpRight } from 'lucide-react';
+import { Search, Filter, Cpu, Zap, Building2, Landmark, Layers, ArrowUpRight, PlusCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface AssetMarketplaceProps {
   assets: RWAAsset[]; // Hardcoded fallback assets
@@ -101,28 +102,33 @@ export const AssetMarketplace: React.FC<AssetMarketplaceProps> = ({ assets, onSe
       return a.riskScore.localeCompare(b.riskScore);
     });
 
-  const totalMarketValuation = allAssets.reduce((acc, curr) => acc + curr.totalValueUSD, 0);
-
   return (
     <div className="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
       
       {/* Streamlined Clean Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6"
+      >
         <div className="space-y-1.5">
-          <div className="inline-flex items-center space-x-2 text-xs font-mono text-[#00E575] uppercase tracking-widest">
-            <span className="w-2 h-2 rounded-full bg-[#00E575] animate-pulse"></span>
+          <div className="inline-flex items-center space-x-2 text-xs font-mono text-emerald-700 uppercase tracking-widest font-semibold">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span>BOT Chain Vaults</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight">
             RWA Fractional Marketplace
           </h1>
-          <p className="text-xs sm:text-sm text-gray-400 font-sans max-w-xl">
+          <p className="text-xs sm:text-sm text-neutral-600 font-sans max-w-xl">
             Inspect and trade verified physical asset shares backed by live IoT telemetry and legal SPV documentation.
           </p>
         </div>
 
         {/* List Your Asset CTA */}
-        <button
+        <motion.button
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           onClick={() => {
             if (!wallet.isConnected) {
               toast.warning('Please connect your EVM wallet to submit an asset.');
@@ -130,19 +136,24 @@ export const AssetMarketplace: React.FC<AssetMarketplaceProps> = ({ assets, onSe
               setIsSubmitModalOpen(true);
             }
           }}
-          className="px-5 py-2.5 rounded-full bg-white hover:bg-gray-100 text-black font-bold text-xs flex items-center space-x-1.5 transition-all shadow-md shadow-white/5 active:scale-95 self-start md:self-auto group shrink-0"
+          className="px-5 py-2.5 rounded-full bg-black hover:bg-neutral-800 text-white font-bold text-xs flex items-center space-x-1.5 transition-all shadow-md self-start md:self-auto group shrink-0"
         >
-          <PlusCircle className="w-4 h-4 text-black" />
+          <PlusCircle className="w-4 h-4 text-white" />
           <span>List Your Asset</span>
-          <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-black" />
-        </button>
-      </div>
+          <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-white" />
+        </motion.button>
+      </motion.div>
 
       {/* Minimalist Controls Bar: Category Pills + Search + Sort */}
-      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4"
+      >
         
         {/* Compact Category Switcher (Matching Hero Filter Pill Style) */}
-        <div className="flex items-center p-1 rounded-full bg-[#12141c] border border-white/10 overflow-x-auto scrollbar-none self-start lg:self-auto max-w-full">
+        <div className="flex items-center p-1 rounded-full bg-neutral-100 border border-neutral-200 overflow-x-auto scrollbar-none self-start lg:self-auto max-w-full">
           {categories.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
@@ -151,8 +162,8 @@ export const AssetMarketplace: React.FC<AssetMarketplaceProps> = ({ assets, onSe
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 select-none flex items-center space-x-1.5 ${
                   isActive
-                    ? 'bg-white text-black font-bold shadow-sm'
-                    : 'text-gray-400 hover:text-white'
+                    ? 'bg-black text-white font-bold shadow-sm'
+                    : 'text-neutral-600 hover:text-black'
                 }`}
               >
                 {cat.icon}
@@ -167,66 +178,84 @@ export const AssetMarketplace: React.FC<AssetMarketplaceProps> = ({ assets, onSe
           
           {/* Search Pill */}
           <div className="relative flex-1 sm:w-56">
-            <Search className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search className="w-3.5 h-3.5 absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
             <input
               type="text"
               placeholder="Search assets..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3.5 py-1.5 rounded-full bg-[#12141c] border border-white/10 hover:border-white/20 focus:border-white/40 text-xs text-white placeholder:text-gray-500 focus:outline-none transition-colors"
+              className="w-full pl-9 pr-3.5 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 hover:border-neutral-300 focus:border-black text-xs text-neutral-900 placeholder:text-neutral-500 focus:outline-none transition-colors"
             />
           </div>
 
           {/* Sort Pill */}
-          <div className="flex items-center space-x-1 px-3 py-1.5 rounded-full bg-[#12141c] border border-white/10 hover:border-white/20 text-xs font-mono text-gray-300 shrink-0">
-            <Filter className="w-3 h-3 text-gray-400" />
+          <div className="flex items-center space-x-1 px-3 py-1.5 rounded-full bg-neutral-100 border border-neutral-200 hover:border-neutral-300 text-xs font-mono text-neutral-700 shrink-0">
+            <Filter className="w-3 h-3 text-neutral-500" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-transparent text-xs text-gray-200 focus:outline-none cursor-pointer pr-1"
+              className="bg-transparent text-xs text-neutral-800 focus:outline-none cursor-pointer pr-1"
             >
-              <option value="apy" className="bg-[#12141c] text-white">Highest APY</option>
-              <option value="valuation" className="bg-[#12141c] text-white">Highest Valuation</option>
-              <option value="risk" className="bg-[#12141c] text-white">Lowest Risk Rating</option>
+              <option value="apy" className="bg-white text-black">Highest APY</option>
+              <option value="valuation" className="bg-white text-black">Highest Valuation</option>
+              <option value="risk" className="bg-white text-black">Lowest Risk Rating</option>
             </select>
           </div>
 
         </div>
 
-      </div>
+      </motion.div>
 
       {/* Assets Grid (Spacious 3-Column Layout) */}
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="h-[480px] rounded-[2rem] animate-pulse bg-white/[0.03] border border-white/[0.06]" />
+            <div key={n} className="h-[480px] rounded-[28px] animate-pulse bg-neutral-200/50 border border-neutral-200" />
           ))}
         </div>
       ) : filteredAssets.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4">
-          {filteredAssets.map((asset) => (
-            <AssetCard key={asset.id} asset={asset} onSelect={onSelectAsset} />
-          ))}
-        </div>
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-4"
+        >
+          <AnimatePresence>
+            {filteredAssets.map((asset) => (
+              <motion.div 
+                key={asset.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.35 }}
+              >
+                <AssetCard asset={asset} onSelect={onSelectAsset} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       ) : (
-        <div className="p-14 rounded-[2.5rem] bg-[#0C0E17]/80 border border-white/[0.08] text-center max-w-md mx-auto space-y-4 shadow-xl">
-          <div className="w-14 h-14 rounded-2xl bg-black flex items-center justify-center border border-white/10 mx-auto shadow-sm">
-            <Layers className="w-6 h-6 text-gray-400" />
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-14 rounded-[28px] bg-white border border-neutral-200 text-center max-w-md mx-auto space-y-4 shadow-sm"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-neutral-100 flex items-center justify-center border border-neutral-200 mx-auto shadow-sm">
+            <Layers className="w-6 h-6 text-neutral-400" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-white">No Assets Found</h3>
-            <p className="text-xs text-gray-400">Try clearing your search query or selecting a different category filter.</p>
+            <h3 className="text-lg font-bold text-neutral-900">No Assets Found</h3>
+            <p className="text-xs text-neutral-500">Try clearing your search query or selecting a different category filter.</p>
           </div>
           <button
             onClick={() => {
               setSearchQuery('');
               setSelectedCategory('all');
             }}
-            className="px-5 py-2 rounded-full bg-white text-black text-xs font-bold hover:bg-gray-100 transition-all shadow-md"
+            className="px-5 py-2 rounded-full bg-black text-white text-xs font-bold hover:bg-neutral-800 transition-all shadow-md"
           >
             Reset Filters
           </button>
-        </div>
+        </motion.div>
       )}
 
       {/* Asset Submission Modal */}

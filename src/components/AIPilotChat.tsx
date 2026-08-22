@@ -177,34 +177,35 @@ Provide clear, concise strategic guidance for portfolio allocation, yield optimi
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-6">
 
       {/* Header Banner */}
-      <div className="glass-card rounded-2xl p-5 border border-purple-500/30 bg-gradient-to-r from-purple-950/40 via-surface to-cyan-950/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-[28px] p-6 border border-neutral-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center space-x-3">
-          <div className="w-11 h-11 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-300 shrink-0">
-            <Sparkles className="w-6 h-6 text-purple-400" />
+          <div className="w-11 h-11 rounded-2xl bg-neutral-100 border border-neutral-200 flex items-center justify-center text-black shrink-0 shadow-sm">
+            <Sparkles className="w-5 h-5 text-purple-600" />
           </div>
           <div>
-            <h2 className="text-lg font-extrabold text-white">YieldBot AI Strategy Co-Pilot</h2>
+            <h2 className="text-lg font-extrabold text-neutral-900">YieldBot AI Strategy Co-Pilot</h2>
+            <p className="text-xs text-neutral-500 font-sans">Powered by Google Gemini 1.5/2.0 Flash LLM</p>
           </div>
         </div>
 
-        <div className={`flex items-center space-x-2 text-xs font-mono px-3 py-1.5 rounded-xl border ${
+        <div className={`flex items-center space-x-2 text-xs font-mono px-3.5 py-1.5 rounded-full border ${
           isReady
-            ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20'
-            : 'text-amber-400 bg-amber-500/10 border-amber-500/20'
+            ? 'text-emerald-800 bg-emerald-50 border-emerald-300 font-semibold'
+            : 'text-amber-800 bg-amber-50 border-amber-300 font-semibold'
         }`}>
-          <Zap className="w-3.5 h-3.5" />
+          <Zap className="w-3.5 h-3.5 text-emerald-600" />
           <span>{isReady ? 'Active' : 'API Key Required'}</span>
         </div>
       </div>
 
       {/* Missing Key Warning */}
       {!isReady && (
-        <div className="glass-card p-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 text-amber-200 text-xs font-mono flex items-center space-x-3">
-          <AlertCircle className="w-5 h-5 text-amber-400 shrink-0" />
+        <div className="p-4 rounded-2xl border border-amber-200 bg-amber-50 text-amber-900 text-xs font-mono flex items-center space-x-3 shadow-sm">
+          <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
           <div>
-            <div className="font-bold text-white">VITE_GEMINI_API_KEY not set</div>
-            <div className="text-[11px] text-amber-300 mt-0.5">
-              Add <code className="text-cyan-300">VITE_GEMINI_API_KEY=your_key</code> to your <code className="text-white bg-black/40 px-1 rounded">.env</code> file and restart the dev server.
+            <div className="font-bold">VITE_GEMINI_API_KEY not set</div>
+            <div className="text-[11px] text-amber-800 mt-0.5">
+              Add <code className="text-black font-bold">VITE_GEMINI_API_KEY=your_key</code> to your <code className="bg-white px-1.5 py-0.5 rounded border border-amber-300 font-bold">.env</code> file and restart the dev server.
             </div>
           </div>
         </div>
@@ -212,43 +213,43 @@ Provide clear, concise strategic guidance for portfolio allocation, yield optimi
 
       {/* API Error Banner */}
       {apiError && (
-        <div className="glass-card p-4 rounded-2xl border border-rose-500/40 bg-rose-500/10 text-rose-300 text-xs font-mono flex items-center space-x-2">
-          <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+        <div className="p-4 rounded-2xl border border-rose-200 bg-rose-50 text-rose-800 text-xs font-mono flex items-center space-x-2 shadow-sm">
+          <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
           <span className="break-all">{apiError}</span>
         </div>
       )}
 
       {/* Main Chat Interface */}
-      <div className="glass-card rounded-2xl border border-purple-500/30 overflow-hidden shadow-2xl flex flex-col h-[600px]">
+      <div className="bg-white rounded-[28px] border border-neutral-200 overflow-hidden shadow-sm flex flex-col h-[600px]">
 
         {/* Chat History */}
-        <div className="flex-1 p-4 overflow-y-auto space-y-4">
+        <div className="flex-1 p-5 overflow-y-auto space-y-4">
           {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex items-start space-x-3 ${msg.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}
             >
-              <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                 msg.sender === 'user'
-                  ? 'bg-cyan-500/20 border border-cyan-500/40 text-cyan-300'
-                  : 'bg-purple-500/20 border border-purple-500/40 text-purple-300'
+                  ? 'bg-black text-white shadow-sm'
+                  : 'bg-purple-100 text-purple-700 border border-purple-200'
               }`}>
                 {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
               </div>
 
-              <div className={`max-w-xl rounded-2xl p-4 text-xs font-sans leading-relaxed ${
+              <div className={`max-w-xl rounded-2xl p-4 text-xs font-sans leading-relaxed shadow-sm ${
                 msg.sender === 'user'
-                  ? 'bg-cyan-500/10 border border-cyan-500/30 text-white rounded-tr-none'
-                  : 'bg-white/5 border border-white/10 text-gray-200 rounded-tl-none'
+                  ? 'bg-black text-white rounded-tr-none'
+                  : 'bg-neutral-50 border border-neutral-200 text-neutral-800 rounded-tl-none'
               }`}>
 
                 {msg.sender === 'ai' && (
-                  <div className="mb-2 pb-1.5 border-b border-white/10 flex items-center justify-between text-[10px] font-mono">
-                    <span className="flex items-center space-x-1 text-purple-300 font-semibold">
-                      <Sparkles className="w-3 h-3 text-purple-400" />
+                  <div className="mb-2 pb-1.5 border-b border-neutral-200 flex items-center justify-between text-[10px] font-mono">
+                    <span className="flex items-center space-x-1 text-purple-700 font-bold">
+                      <Sparkles className="w-3 h-3 text-purple-600" />
                       <span>{msg.engineName || 'YieldBot AI'}</span>
                     </span>
-                    <span className="text-gray-500">{msg.timestamp}</span>
+                    <span className="text-neutral-400">{msg.timestamp}</span>
                   </div>
                 )}
 
@@ -256,24 +257,24 @@ Provide clear, concise strategic guidance for portfolio allocation, yield optimi
 
                 {/* Smart Contract Rebalancing Action */}
                 {msg.actionPayload && (
-                  <div className="mt-3 pt-3 border-t border-white/10 flex flex-col space-y-2">
+                  <div className="mt-3 pt-3 border-t border-neutral-200 flex flex-col space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-purple-300 font-bold">{msg.actionPayload.details}</span>
+                      <span className="text-[10px] font-mono text-purple-700 font-bold">{msg.actionPayload.details}</span>
                       <button
                         onClick={() => handleExecuteOnChain(msg.id, msg.actionPayload!.type, msg.actionPayload!.details)}
                         disabled={executingActionId === msg.id}
-                        className="px-3 py-1.5 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 font-mono text-[10px] font-bold transition-all flex items-center space-x-1 disabled:opacity-50"
+                        className="px-3.5 py-1.5 rounded-full bg-black hover:bg-neutral-800 text-white font-mono text-[10px] font-bold transition-all flex items-center space-x-1 disabled:opacity-50 active:scale-95"
                       >
                         {executingActionId === msg.id ? (
-                          <span className="w-3 h-3 rounded-full border-2 border-purple-400 border-t-transparent animate-spin"></span>
+                          <span className="w-3 h-3 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
                         ) : (
-                          <Zap className="w-3 h-3 text-purple-400" />
+                          <Zap className="w-3 h-3 text-emerald-400" />
                         )}
                         <span>Sign & Broadcast On-Chain</span>
                       </button>
                     </div>
                     {actionStatus[msg.id] && (
-                      <div className="text-[10px] font-mono text-emerald-400 truncate bg-black/50 p-2 rounded border border-emerald-500/20">
+                      <div className="text-[10px] font-mono text-emerald-800 truncate bg-emerald-50 p-2 rounded-xl border border-emerald-200">
                         {actionStatus[msg.id]}
                       </div>
                     )}
@@ -281,7 +282,7 @@ Provide clear, concise strategic guidance for portfolio allocation, yield optimi
                 )}
 
                 {msg.sender === 'user' && (
-                  <div className="text-[9px] font-mono text-gray-500 mt-1 text-right">{msg.timestamp}</div>
+                  <div className="text-[9px] font-mono text-neutral-400 mt-1 text-right">{msg.timestamp}</div>
                 )}
               </div>
             </div>
@@ -289,24 +290,24 @@ Provide clear, concise strategic guidance for portfolio allocation, yield optimi
 
           {isThinking && (
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-500/40 text-purple-300 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-purple-100 text-purple-700 border border-purple-200 flex items-center justify-center">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-xs font-mono text-gray-400 flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
-                <span>Thinking...</span>
+              <div className="bg-neutral-50 border border-neutral-200 rounded-2xl px-4 py-3 text-xs font-mono text-neutral-600 flex items-center space-x-2">
+                <span className="w-2 h-2 rounded-full bg-purple-600 animate-ping"></span>
+                <span>YieldBot is computing strategy...</span>
               </div>
             </div>
           )}
         </div>
 
         {/* Quick Suggestion Pills */}
-        <div className="p-3 border-t border-white/10 bg-black/30 overflow-x-auto flex items-center space-x-2">
+        <div className="p-3 border-t border-neutral-200 bg-neutral-50 overflow-x-auto flex items-center space-x-2">
           {quickPrompts.map((prompt, idx) => (
             <button
               key={idx}
               onClick={() => handleSendMessage(prompt)}
-              className="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 text-[11px] font-mono whitespace-nowrap transition-colors"
+              className="px-3.5 py-1.5 rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-700 text-[11px] font-mono whitespace-nowrap transition-colors shadow-sm"
             >
               {prompt}
             </button>
@@ -314,19 +315,19 @@ Provide clear, concise strategic guidance for portfolio allocation, yield optimi
         </div>
 
         {/* Input Bar */}
-        <div className="p-4 bg-surface border-t border-white/10 flex items-center space-x-3">
+        <div className="p-4 bg-white border-t border-neutral-200 flex items-center space-x-3">
           <input
             type="text"
             placeholder="Ask about RWA strategies, APY optimization, or portfolio rebalancing..."
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-            className="glass-input flex-1 px-4 py-3 rounded-xl text-xs font-mono text-white placeholder:text-gray-500"
+            className="flex-1 px-4 py-3 rounded-full text-xs font-mono text-neutral-900 placeholder:text-neutral-400 bg-neutral-100 border border-neutral-200 focus:outline-none focus:border-black"
           />
           <button
             onClick={() => handleSendMessage()}
             disabled={!inputText.trim() || !isReady}
-            className="btn-primary p-3 rounded-xl text-black disabled:opacity-40"
+            className="p-3 rounded-full bg-black hover:bg-neutral-800 text-white disabled:opacity-40 transition-all shadow-md active:scale-95"
           >
             <Send className="w-4 h-4" />
           </button>

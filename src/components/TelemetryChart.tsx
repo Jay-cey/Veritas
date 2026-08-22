@@ -48,30 +48,30 @@ export const TelemetryChart: React.FC<TelemetryChartProps> = ({
   }, [currentValue]);
 
   return (
-    <div className="bg-[#0D111D] border border-white/10 rounded-xl p-4 font-mono text-xs">
-      <div className="flex items-center justify-between mb-3 pb-2 border-b border-white/10">
+    <div className="bg-neutral-50 border border-neutral-200 rounded-2xl p-4 font-mono text-xs shadow-sm">
+      <div className="flex items-center justify-between mb-3 pb-2 border-b border-neutral-200">
         <div className="flex items-center space-x-2">
-          <Activity className="w-4 h-4 text-cyan-400 animate-pulse" />
-          <span className="text-gray-300 font-bold uppercase tracking-wider">{telemetryType}</span>
+          <Activity className="w-4 h-4 text-emerald-600 animate-pulse" />
+          <span className="text-neutral-900 font-bold uppercase tracking-wider">{telemetryType}</span>
         </div>
-        <div className="flex items-center space-x-1.5 text-[11px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <div className="flex items-center space-x-1.5 text-[11px] text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-300 font-semibold">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
           <span>Live Oracle Stream</span>
         </div>
       </div>
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 gap-2 mb-3">
-        <div className="bg-white/5 rounded-lg p-2.5">
-          <div className="text-[10px] text-gray-400 uppercase">Current Reading</div>
-          <div className="text-lg font-bold text-white mt-0.5">
-            {data[data.length - 1]?.value.toLocaleString() || currentValue} <span className="text-xs text-cyan-400 font-normal">{unit}</span>
+        <div className="bg-white rounded-xl p-3 border border-neutral-200">
+          <div className="text-[10px] text-neutral-500 font-semibold uppercase">Current Reading</div>
+          <div className="text-lg font-bold text-neutral-900 mt-0.5">
+            {data[data.length - 1]?.value.toLocaleString() || currentValue} <span className="text-xs text-emerald-600 font-normal">{unit}</span>
           </div>
         </div>
-        <div className="bg-white/5 rounded-lg p-2.5">
-          <div className="text-[10px] text-gray-400 uppercase">Oracle Verifier</div>
-          <div className="text-xs font-semibold text-gray-300 truncate mt-1 flex items-center space-x-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+        <div className="bg-white rounded-xl p-3 border border-neutral-200">
+          <div className="text-[10px] text-neutral-500 font-semibold uppercase">Oracle Verifier</div>
+          <div className="text-xs font-semibold text-neutral-800 truncate mt-1 flex items-center space-x-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span className="truncate">{verifier}</span>
           </div>
         </div>
@@ -83,17 +83,17 @@ export const TelemetryChart: React.FC<TelemetryChartProps> = ({
           <AreaChart data={data}>
             <defs>
               <linearGradient id="telemetryGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor={accentColor} stopOpacity={0.4}/>
-                <stop offset="95%" stopColor={accentColor} stopOpacity={0.0}/>
+                <stop offset="5%" stopColor="#10B981" stopOpacity={0.3}/>
+                <stop offset="95%" stopColor="#10B981" stopOpacity={0.0}/>
               </linearGradient>
             </defs>
-            <XAxis dataKey="time" stroke="#4B5563" tick={{ fontSize: 9 }} tickLine={false} />
-            <YAxis stroke="#4B5563" tick={{ fontSize: 9 }} tickLine={false} domain={['dataMin - 5', 'dataMax + 5']} />
+            <XAxis dataKey="time" stroke="#9CA3AF" tick={{ fontSize: 9 }} tickLine={false} />
+            <YAxis stroke="#9CA3AF" tick={{ fontSize: 9 }} tickLine={false} domain={['dataMin - 5', 'dataMax + 5']} />
             <Tooltip
-              contentStyle={{ backgroundColor: '#101422', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px', fontSize: '11px' }}
-              labelStyle={{ color: '#9CA3AF' }}
+              contentStyle={{ backgroundColor: '#FFFFFF', borderColor: '#E5E7EB', borderRadius: '12px', fontSize: '11px', color: '#111827', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}
+              labelStyle={{ color: '#6B7280' }}
             />
-            <Area type="monotone" dataKey="value" stroke={accentColor} strokeWidth={2} fillOpacity={1} fill="url(#telemetryGrad)" />
+            <Area type="monotone" dataKey="value" stroke="#10B981" strokeWidth={2} fillOpacity={1} fill="url(#telemetryGrad)" />
           </AreaChart>
         </ResponsiveContainer>
       </div>

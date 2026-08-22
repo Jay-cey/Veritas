@@ -186,7 +186,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#060709] text-gray-100 flex flex-col font-sans">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#FAFAFC] text-[#111118] flex flex-col font-sans">
       
       {/* Top Navbar */}
       <Navbar

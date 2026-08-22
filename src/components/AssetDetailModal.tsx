@@ -135,37 +135,37 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-      <div className="glass-card max-w-4xl w-full rounded-2xl border border-white/15 overflow-hidden shadow-2xl relative my-8 animate-in fade-in zoom-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md overflow-y-auto">
+      <div className="bg-white text-neutral-900 max-w-4xl w-full rounded-[32px] border border-neutral-200 overflow-hidden shadow-2xl relative my-8 animate-in fade-in zoom-in duration-200">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/60 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition-colors"
+          className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Modal Header Banner */}
-        <div className="relative h-56 w-full overflow-hidden bg-surface">
+        <div className="relative h-56 w-full overflow-hidden bg-neutral-100">
           <img src={asset.image} alt={asset.name} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#101422] via-[#101422]/60 to-black/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/20"></div>
           
           <div className="absolute bottom-4 left-6 right-6 flex flex-col md:flex-row md:items-end justify-between gap-2">
             <div>
-              <div className="flex items-center space-x-2 text-xs font-mono text-cyan-400 mb-1">
-                <span className="px-2 py-0.5 rounded bg-cyan-500/20 border border-cyan-500/40">{asset.categoryName}</span>
+              <div className="flex items-center space-x-2 text-xs font-mono text-emerald-300 mb-1">
+                <span className="px-2 py-0.5 rounded bg-black/60 border border-white/20 text-white font-medium">{asset.categoryName}</span>
                 <span>•</span>
-                <span>{asset.location}</span>
+                <span className="text-white/80">{asset.location}</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-extrabold text-white">{asset.name}</h2>
             </div>
             
             <div className="flex items-center space-x-2">
-              <span className="px-3 py-1 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-mono font-bold text-sm">
+              <span className="px-3 py-1 rounded-xl bg-emerald-500 text-black font-mono font-bold text-sm shadow-sm">
                 {asset.apy}% APY
               </span>
-              <span className="px-3 py-1 rounded-xl bg-blue-500/20 border border-blue-500/40 text-blue-300 font-mono font-bold text-sm">
+              <span className="px-3 py-1 rounded-xl bg-white/90 text-black font-mono font-bold text-sm shadow-sm">
                 Rating {asset.riskScore}
               </span>
             </div>
@@ -173,11 +173,11 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
         </div>
 
         {/* Modal Navigation Tabs */}
-        <div className="flex border-b border-white/10 bg-white/5 px-6 overflow-x-auto">
+        <div className="flex border-b border-neutral-200 bg-neutral-50 px-6 overflow-x-auto">
           <button
             onClick={() => setActiveTab('overview')}
             className={`px-4 py-3 text-xs font-mono font-semibold transition-colors border-b-2 whitespace-nowrap ${
-              activeTab === 'overview' ? 'border-cyan-400 text-cyan-300' : 'border-transparent text-gray-400 hover:text-white'
+              activeTab === 'overview' ? 'border-black text-black font-bold' : 'border-transparent text-neutral-500 hover:text-black'
             }`}
           >
             Overview & Specifications
@@ -185,7 +185,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
           <button
             onClick={() => setActiveTab('telemetry')}
             className={`px-4 py-3 text-xs font-mono font-semibold transition-colors border-b-2 whitespace-nowrap ${
-              activeTab === 'telemetry' ? 'border-cyan-400 text-cyan-300' : 'border-transparent text-gray-400 hover:text-white'
+              activeTab === 'telemetry' ? 'border-black text-black font-bold' : 'border-transparent text-neutral-500 hover:text-black'
             }`}
           >
             Live IoT Telemetry
@@ -193,7 +193,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
           <button
             onClick={() => setActiveTab('calculator')}
             className={`px-4 py-3 text-xs font-mono font-semibold transition-colors border-b-2 whitespace-nowrap ${
-              activeTab === 'calculator' ? 'border-cyan-400 text-cyan-300' : 'border-transparent text-gray-400 hover:text-white'
+              activeTab === 'calculator' ? 'border-black text-black font-bold' : 'border-transparent text-neutral-500 hover:text-black'
             }`}
           >
             Yield Calculator & ROI
@@ -201,7 +201,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
           <button
             onClick={() => setActiveTab('legal')}
             className={`px-4 py-3 text-xs font-mono font-semibold transition-colors border-b-2 whitespace-nowrap ${
-              activeTab === 'legal' ? 'border-cyan-400 text-cyan-300' : 'border-transparent text-gray-400 hover:text-white'
+              activeTab === 'legal' ? 'border-black text-black font-bold' : 'border-transparent text-neutral-500 hover:text-black'
             }`}
           >
             Legal SPV & Contracts
@@ -217,16 +217,16 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
             {activeTab === 'overview' && (
               <div className="space-y-4">
                 <div>
-                  <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider font-mono">Asset Summary</h4>
-                  <p className="text-xs text-gray-300 leading-relaxed mt-1 font-sans">{asset.description}</p>
+                  <h4 className="text-sm font-bold text-neutral-700 uppercase tracking-wider font-mono">Asset Summary</h4>
+                  <p className="text-xs text-neutral-600 leading-relaxed mt-1 font-sans">{asset.description}</p>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-bold text-gray-300 uppercase tracking-wider font-mono mb-2">Key Protocol Features</h4>
+                  <h4 className="text-sm font-bold text-neutral-700 uppercase tracking-wider font-mono mb-2">Key Protocol Features</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {asset.features.map((feat, idx) => (
-                      <div key={idx} className="flex items-center space-x-2 p-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-200">
-                        <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
+                      <div key={idx} className="flex items-center space-x-2 p-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs text-neutral-800">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -234,13 +234,13 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 pt-2">
-                  <div className="bg-white/5 rounded-xl p-3 border border-white/10">
-                    <div className="text-[10px] text-gray-400 font-mono uppercase">Contract Address</div>
-                    <div className="text-xs font-mono text-cyan-300 truncate mt-1">{asset.contractAddress}</div>
+                  <div className="bg-neutral-50 rounded-xl p-3 border border-neutral-200">
+                    <div className="text-[10px] text-neutral-500 font-mono uppercase font-semibold">Contract Address</div>
+                    <div className="text-xs font-mono text-neutral-900 truncate mt-1">{asset.contractAddress}</div>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-3 border border-white/10">
-                    <div className="text-[10px] text-gray-400 font-mono uppercase">Verified Oracle</div>
-                    <div className="text-xs font-mono text-emerald-400 truncate mt-1">{asset.verifier}</div>
+                  <div className="bg-neutral-50 rounded-xl p-3 border border-neutral-200">
+                    <div className="text-[10px] text-neutral-500 font-mono uppercase font-semibold">Verified Oracle</div>
+                    <div className="text-xs font-mono text-emerald-700 truncate mt-1 font-bold">{asset.verifier}</div>
                   </div>
                 </div>
               </div>
@@ -248,7 +248,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
 
             {activeTab === 'telemetry' && (
               <div className="space-y-4">
-                <p className="text-xs text-gray-300 font-sans">
+                <p className="text-xs text-neutral-600 font-sans">
                   Real-time IoT sensors transmit cryptographic state proofs directly onto BOT Chain every 15 seconds.
                 </p>
                 <TelemetryChart
@@ -262,27 +262,27 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
 
             {activeTab === 'calculator' && (
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3">
-                  <div className="flex items-center space-x-2 text-xs font-mono text-cyan-400">
-                    <Calculator className="w-4 h-4" />
+                <div className="p-4 rounded-2xl bg-neutral-50 border border-neutral-200 space-y-3">
+                  <div className="flex items-center space-x-2 text-xs font-mono text-neutral-900">
+                    <Calculator className="w-4 h-4 text-emerald-600" />
                     <span className="uppercase font-bold">Interactive Earnings Forecast</span>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="p-3 rounded-lg bg-black/40 border border-white/10">
-                      <div className="text-[10px] text-gray-400 font-mono uppercase">Estimated Monthly Payout</div>
-                      <div className="text-lg font-bold text-emerald-400 font-mono mt-1">
+                    <div className="p-3.5 rounded-xl bg-white border border-neutral-200">
+                      <div className="text-[10px] text-neutral-500 font-mono uppercase font-semibold">Estimated Monthly Payout</div>
+                      <div className="text-lg font-bold text-emerald-600 font-mono mt-1">
                         {estimatedMonthlyYieldBOT} BOT
                       </div>
-                      <div className="text-[10px] text-gray-500 font-mono">~${(parseFloat(estimatedMonthlyYieldBOT) * 0.0425).toFixed(2)} USDT</div>
+                      <div className="text-[10px] text-neutral-400 font-mono">~${(parseFloat(estimatedMonthlyYieldBOT) * 0.0425).toFixed(2)} USDT</div>
                     </div>
 
-                    <div className="p-3 rounded-lg bg-black/40 border border-white/10">
-                      <div className="text-[10px] text-gray-400 font-mono uppercase">Estimated Annual Yield</div>
-                      <div className="text-lg font-bold text-cyan-400 font-mono mt-1">
+                    <div className="p-3.5 rounded-xl bg-white border border-neutral-200">
+                      <div className="text-[10px] text-neutral-500 font-mono uppercase font-semibold">Estimated Annual Yield</div>
+                      <div className="text-lg font-bold text-neutral-900 font-mono mt-1">
                         {estimatedAnnualYieldBOT} BOT
                       </div>
-                      <div className="text-[10px] text-gray-500 font-mono">~${(parseFloat(estimatedAnnualYieldBOT) * 0.0425).toFixed(2)} USDT</div>
+                      <div className="text-[10px] text-neutral-400 font-mono">~${(parseFloat(estimatedAnnualYieldBOT) * 0.0425).toFixed(2)} USDT</div>
                     </div>
                   </div>
                 </div>
@@ -291,23 +291,23 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
 
             {activeTab === 'legal' && (
               <div className="space-y-3 font-mono text-xs">
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-2">
-                  <div className="text-gray-400">DocuSign IPFS Legal Audit Hash:</div>
-                  <div className="text-cyan-300 break-all bg-black/50 p-2 rounded border border-white/10 text-[11px]">
+                <div className="p-3.5 rounded-2xl bg-neutral-50 border border-neutral-200 space-y-2">
+                  <div className="text-neutral-500 font-semibold">DocuSign IPFS Legal Audit Hash:</div>
+                  <div className="text-neutral-900 break-all bg-white p-2.5 rounded-xl border border-neutral-200 text-[11px]">
                     {asset.spvDocumentHash}
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+                <div className="p-3.5 rounded-2xl bg-neutral-50 border border-neutral-200 flex items-center justify-between">
                   <div>
-                    <div className="text-white font-bold">BOT Chain Explorer Contract</div>
-                    <div className="text-gray-400 text-[10px]">Verified bytecode on {activeParams.blockExplorerUrl}</div>
+                    <div className="text-neutral-900 font-bold">BOT Chain Explorer Contract</div>
+                    <div className="text-neutral-500 text-[10px]">Verified bytecode on {activeParams.blockExplorerUrl}</div>
                   </div>
                   <a
                     href={`${activeParams.blockExplorerUrl}/address/${asset.contractAddress}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 flex items-center space-x-1 hover:bg-cyan-500/30 transition-colors"
+                    className="px-3.5 py-1.5 rounded-full bg-black text-white flex items-center space-x-1 hover:bg-neutral-800 transition-colors font-bold text-xs"
                   >
                     <span>View on Scan</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -319,19 +319,19 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
           </div>
 
           {/* Right Column: Real On-Chain Minting Sidebar */}
-          <div className="glass-panel p-5 rounded-xl border border-cyan-500/30 space-y-4 flex flex-col justify-between">
+          <div className="bg-neutral-50 p-5 rounded-2xl border border-neutral-200 space-y-4 flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="pb-3 border-b border-white/10 flex items-center justify-between">
-                <h3 className="text-sm font-bold text-white uppercase font-mono tracking-wider">Mint Fractions</h3>
-                <span className="text-[11px] font-mono text-emerald-400">Available: {asset.availableFractions.toLocaleString()}</span>
+              <div className="pb-3 border-b border-neutral-200 flex items-center justify-between">
+                <h3 className="text-sm font-bold text-neutral-900 uppercase font-mono tracking-wider">Mint Fractions</h3>
+                <span className="text-[11px] font-mono text-emerald-700 font-bold">Available: {asset.availableFractions.toLocaleString()}</span>
               </div>
 
               {/* Currency Selector */}
-              <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-black/40 border border-white/10">
+              <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-neutral-200/80 border border-neutral-300">
                 <button
                   onClick={() => setPaymentCurrency('BOT')}
                   className={`py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
-                    paymentCurrency === 'BOT' ? 'bg-cyan-500 text-black' : 'text-gray-400 hover:text-white'
+                    paymentCurrency === 'BOT' ? 'bg-black text-white shadow-sm' : 'text-neutral-600 hover:text-black'
                   }`}
                 >
                   Pay with BOT
@@ -339,7 +339,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
                 <button
                   onClick={() => setPaymentCurrency('USDT')}
                   className={`py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
-                    paymentCurrency === 'USDT' ? 'bg-emerald-500 text-black' : 'text-gray-400 hover:text-white'
+                    paymentCurrency === 'USDT' ? 'bg-black text-white shadow-sm' : 'text-neutral-600 hover:text-black'
                   }`}
                 >
                   Pay with USDT
@@ -348,7 +348,7 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
 
               {/* Input Shares */}
               <div className="space-y-1">
-                <label className="text-[11px] font-mono text-gray-400">Fractions to Purchase:</label>
+                <label className="text-[11px] font-mono text-neutral-500 font-medium">Fractions to Purchase:</label>
                 <div className="relative">
                   <input
                     type="number"
@@ -356,46 +356,46 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
                     max={asset.availableFractions}
                     value={purchaseFractions}
                     onChange={(e) => setPurchaseFractions(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="glass-input w-full px-3 py-2 rounded-xl text-sm font-mono text-white font-bold"
+                    className="w-full px-3 py-2 rounded-xl text-sm font-mono text-neutral-900 font-bold bg-white border border-neutral-300 focus:outline-none focus:border-black"
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-400">Shares</span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-neutral-500">Shares</span>
                 </div>
               </div>
 
               {/* Total Summary */}
-              <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-2 font-mono text-xs">
-                <div className="flex justify-between text-gray-400">
+              <div className="p-3.5 rounded-xl bg-white border border-neutral-200 space-y-2 font-mono text-xs">
+                <div className="flex justify-between text-neutral-500">
                   <span>Price / Fraction:</span>
-                  <span className="text-white font-bold">
+                  <span className="text-neutral-900 font-bold">
                     {paymentCurrency === 'BOT' ? `${asset.fractionPriceBOT} BOT` : `$${asset.fractionPriceUSDT} USDT`}
                   </span>
                 </div>
-                <div className="flex justify-between text-gray-400 pt-1 border-t border-white/10">
+                <div className="flex justify-between text-neutral-500 pt-1 border-t border-neutral-100">
                   <span>Total Amount:</span>
-                  <span className="text-cyan-300 font-extrabold text-sm">
+                  <span className="text-neutral-900 font-extrabold text-sm">
                     {paymentCurrency === 'BOT' ? `${totalCostBOT.toLocaleString()} BOT` : `$${totalCostUSDT.toLocaleString()} USDT`}
                   </span>
                 </div>
               </div>
 
               {errorMessage && (
-                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 font-mono text-[11px] flex items-start space-x-2">
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 font-mono text-[11px] flex items-start space-x-2">
+                  <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                   <span>{errorMessage}</span>
                 </div>
               )}
 
               {mintTxHash && (
-                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-[11px] space-y-1">
+                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[11px] space-y-1">
                   <div className="flex items-center space-x-1 font-bold">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Transaction Confirmed!</span>
                   </div>
                   <a
                     href={`${activeParams.blockExplorerUrl}/tx/${mintTxHash}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="truncate text-cyan-400 underline block text-[10px]"
+                    className="truncate text-black underline block text-[10px] font-semibold"
                   >
                     View TX: {mintTxHash}
                   </a>
@@ -407,11 +407,11 @@ export const AssetDetailModal: React.FC<AssetDetailModalProps> = ({
             <button
               onClick={handleMintFraction}
               disabled={isMinting}
-              className="btn-primary w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/20 disabled:opacity-50"
+              className="w-full py-3.5 rounded-full bg-black hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 shadow-md disabled:opacity-50 transition-all active:scale-95"
             >
               {isMinting ? (
                 <>
-                  <span className="w-4 h-4 rounded-full border-2 border-black border-t-transparent animate-spin"></span>
+                  <span className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
                   <span>Executing on BOT Chain...</span>
                 </>
               ) : (

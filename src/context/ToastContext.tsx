@@ -54,39 +54,29 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           const isWarning = toast.type === 'warning';
 
           const borderColor = isSuccess
-            ? 'border-[#00E575]/40 hover:border-[#00E575]/70'
+            ? 'border-emerald-300'
             : isError
-            ? 'border-rose-500/40 hover:border-rose-500/70'
+            ? 'border-rose-300'
             : isWarning
-            ? 'border-[#FFE600]/40 hover:border-[#FFE600]/70'
-            : 'border-cyan-500/40 hover:border-cyan-500/70';
-
-          const glowColor = isSuccess
-            ? 'bg-[#00E575]/10'
-            : isError
-            ? 'bg-rose-500/10'
-            : isWarning
-            ? 'bg-[#FFE600]/10'
-            : 'bg-cyan-500/10';
+            ? 'border-amber-300'
+            : 'border-blue-300';
 
           return (
             <div
               key={toast.id}
-              className={`pointer-events-auto flex items-start justify-between p-4 rounded-2xl bg-[#0C0E17]/95 border ${borderColor} backdrop-blur-2xl shadow-2xl shadow-black/80 transition-all duration-300 animate-in slide-in-from-bottom-3 fade-in group relative overflow-hidden`}
+              className={`pointer-events-auto flex items-start justify-between p-4 rounded-2xl bg-white/95 border ${borderColor} backdrop-blur-2xl shadow-xl transition-all duration-300 animate-in slide-in-from-bottom-3 fade-in group relative overflow-hidden`}
             >
-              <div className={`absolute top-0 right-0 w-24 h-24 ${glowColor} rounded-full blur-xl pointer-events-none`} />
-
               <div className="flex items-start space-x-3 relative z-10">
-                {isSuccess && <CheckCircle2 className="w-5 h-5 text-[#00E575] shrink-0 mt-0.5" />}
-                {isError && <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />}
-                {isWarning && <AlertTriangle className="w-5 h-5 text-[#FFE600] shrink-0 mt-0.5" />}
-                {!isSuccess && !isError && !isWarning && <Info className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />}
+                {isSuccess && <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />}
+                {isError && <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />}
+                {isWarning && <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />}
+                {!isSuccess && !isError && !isWarning && <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />}
 
                 <div className="space-y-0.5">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400 block">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500 block">
                     {toast.type}
                   </span>
-                  <p className="text-xs font-sans text-white leading-relaxed pr-2">
+                  <p className="text-xs font-sans text-neutral-900 leading-relaxed pr-2 font-medium">
                     {toast.message}
                   </p>
                 </div>
@@ -94,7 +84,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors shrink-0 relative z-10"
+                className="text-neutral-400 hover:text-black p-1 rounded-lg hover:bg-neutral-100 transition-colors shrink-0 relative z-10"
                 aria-label="Dismiss notification"
               >
                 <X className="w-3.5 h-3.5" />
@@ -106,6 +96,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     </ToastContext.Provider>
   );
 };
+
 
 export const useToast = (): ToastContextType => {
   const context = useContext(ToastContext);
